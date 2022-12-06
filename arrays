@@ -1,0 +1,66 @@
+<!DOCTYPE>
+<html>
+<head>
+<title>CIS 223 Chapter 8 Program</title>
+<script>
+ function runningClock()
+        {
+            var today = new Date();
+			var hour = today.getHours();
+			var timer;
+			var min = today.getMinutes();
+			var sec = today.getSeconds();
+			
+			min = checkTime(min);
+			sec = checkTime(sec);
+
+			document.getElementById("clock").innerHTML=("Running Clock:" + " " + hour + ":" + min + ":" + sec);
+			timer = setTimeout("runningClock()",500);
+		}
+function checkTime(i)
+		{
+			if(i<10)
+			i = "0" +1;
+			return i;
+		}
+
+/*function groceryList()
+		{
+			var item0 = [];
+			var item1 = [];
+			var item2 = [];
+			const groceries[item0, item1, item2];
+			const result = [i];
+			
+			document.getElementById('item_0').innerHTML = groceries;
+			item1 = document.getElementById("item_1").innerHTML = value;
+			
+			while (groceries[i] !="0")
+				{
+					groceries[i]= prompt("Enter another item on your grocery list: "\n" (Enter 0 to finish)");
+					groceries.push(i);
+					console.log;
+				}
+			
+			for (var i = 1; i <= groceries.length; i++) 
+				{
+					result[i] = (i + "." + groceries[i-1] + "\n");
+					
+					alert("Grocery List:" + "\n" + result[i]);
+				}
+		}
+*/
+</script>
+</head>
+<body onload="runningClock()">
+<h1>Chapter 8 Program</h1>
+<h1><span id="clock"></span></h1>
+<h2>Please use the form below to add 3 items to the grocery list.</h2>
+<form>
+  <input type="text" id="item_0" name="item0">
+  <input type="text" id="item_1" name="item1">
+  <input type="text" id="item_2" name="item2"><br><br>
+  <input type="submit" value="Add to the grocery list" onclick="alert();"/>
+</form>
+	</body>
+	</html>
