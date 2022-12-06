@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<script>
+            function submitForm()
+            {
+                var a = document.getElementById("li1").value;
+                var b = document.getElementById("li2").value;
+                var c = document.getElementById("li3").value;
+                makeArray(a,b,c);
+            }
+			function startClock()
+			{
+				var today = new Date(); //make Date object
+				var hour = today.getHours();
+				var min = today.getMinutes();
+				var sec = today.getSeconds();
+				min = checkTime(min);
+				sec = checkTime(sec);
+
+				document.getElementById("clock").innerHTML = ("Running Clock: "
+				+ hour + ":" + min + ":" +
+				sec);
+
+				//timer to start function over again, creating a realtime running clock
+				var timer = setTimeout("startClock()",500); 
+			}
+
+			function checkTime(i) //this function solves the "6:15:1 pm" problem
+			{
+				if (i<10)
+					i = "0"+i;
+					return i;
+			}
+
+			////////////////////////////////////////
+
+			//array functions
+			function makeArray(x,y,z)
+			{
+				var list = new Array(" "); //just making sure this array is a character array
+				list.splice(0,1,x,y,z); //removing the placeholder element and adding the three values from the inputs
+				var userItem = prompt("Enter another item on your grocery list:\n(Enter 0 to finish)");
+
+				//added null to the while condition to account for hitting the "cancel" button in the prompt
+				//otherwise hitting "cancel" adds a null element
+				while ( !(userItem==0 || userItem ==null) ) 
+				{
+					list.push(userItem);
+					userItem = prompt("Enter another item on your grocery list:\n(Enter 0 to finish)");
+				}
+
+				list.sort(); //sorts array from A to Z ascending
+				alertList(list); //call the function that displays the array
+
+			}
+
+			function alertList(a) //a is the array
+			{
+				var r = a.length; //r is how many elements are in the array
+				var printList = "Grocery List:\n";
+				for (i=0;i < r; i++)
+				{
+					printList = printList + (i+1) + ". " + a[i] + "\n";
+				}
+				alert(printList);
+
+				var letters = 0;
+				var listString = a.toString();
+				//the array string lists all elements with a comma in between each
+				//for example, if there are 5 elements, there are 4 total commas in the string.
+				letters = listString.length - (r-1) //calculates total # letters in the array, minus the commas.
+				alert("Total Letters: " + letters + "\nTotal Elements: " + r);
+			}
+</script>
+</head>
+	<body onload = "startClock()">
+        <h2><div id="clock"></div></h2>
+        <h3>Please use the form below to add 3 items to the grocery list.</h3>
+        <form>
+            <input type = "text" id="li1" name="li1"> 
+            <input type = "text" id="li2" name="li2"> 
+            <input type = "text" id="li3" name="li3"> 
+            <br><br>
+            <input type = "button" id="ok" name="ok" value="Add to the grocery list" onclick="submitForm()">
+            <span id = "check"></span>
+        </form>
+    </body>
+</html>
